@@ -13,7 +13,7 @@
 
 body{
     /*change to sea foam green */
-    background-color: hsl(149,54%,75%);
+    background-color: rgb(24, 24, 24);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -43,8 +43,8 @@ body{
         var(--saturation, 1%), 
         calc(var(--lightness-offset, 0%) + var(--lightness, 51%))
     );
-    color: black;
-    fill: black;
+    color: rgb(255, 255, 255);
+    fill: rgb(255, 255, 255);
     text-transform: uppercase;
     border-radius: .25em;
     cursor: pointer;
@@ -97,7 +97,7 @@ body{
 
 .tile{
     font-size: 2em;
-    color: black;
+    color: rgb(255, 255, 255);
     border: .05em solid hsl(240,2%,23%);
     text-transform: uppercase;
     font-weight: bold;
@@ -105,6 +105,7 @@ body{
     justify-content: center;
     align-items: center;
     user-select: none;
+    transition: transform 250ms linear;
 }
 
 /*changes the border when a tile is active */
@@ -128,11 +129,15 @@ body{
 }
 
 .tile.shake{
-    animation: shake 250ms ease-in-out
+    animation: shake 250ms ease-in-out;
+}
+
+.tile.dance{
+    animation: dance 500ms ease-in-out;
 }
 
 .tile.flip{
-    background: red;
+    transform: rotateX(90deg);
 }
 
 @keyframes shake {
@@ -153,6 +158,27 @@ body{
     }
     100%{
         transform: translateX(0a);
+    }
+}
+
+@keyframes dance {
+    20%{
+        transform: translateY(-50%);
+    }
+    40%{
+        transform: translateY(5%);
+    }
+    60%{
+        transform: translateY(-25%);
+    }
+    80%{
+        transform: translateY(2.5%);
+    }
+    90%{
+        transform: translateY(-5%);
+    }
+    100%{
+        transform: translateY(0%);
     }
 }
 
