@@ -6,4 +6,4 @@ The program works, a few big mistakes that need to be updated, once this problem
 To be included in future updates: <br /> <br />
 Priority: No repeat letters, add tiles dancing when there is a winner <br />
 Eventually have the words come from an api rather than that big list in the java script file  <br />
-Non Priority: HOW TO PLAY SCREEN, Settings with dark mode/light mode and an email me, make it possible to share the results with emojis, get new back button(dont use the one wordle uses), Make this documentation sound professional
+Non Priority: HOW TO PLAY SCREEN, Settings with dark mode/light mode and an email me, make it possible to share the results with emojis, get new back button(dont use the one wordle uses), Make this documentation sound professional, add comments for all functions
