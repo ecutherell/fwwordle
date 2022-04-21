@@ -1,5 +1,5 @@
 Beta testing <br />
-The program works, a few big mistakes that need to be updated <br />
+The program works, a few big mistakes that need to be updated, once this problem is fixed the next goal is to get it on a website <br />
 <br /> <br />
 To be included in future updates: <br /> <br />
 Priority: No repeat letters, add tiles dancing when there is a winner <br />
