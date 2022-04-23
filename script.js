@@ -13286,6 +13286,7 @@ const offsetFromDate = new Date(2022, 3, 21) /*first month is 0 */
 const msOffset = Date.now() - offsetFromDate
 const dayOffset = msOffset/ 1000 / 60 / 60 / 24
 console.log(dayOffset)
+/*might need to add const back in front of target word*/
 const targetWord = targetWords[Math.floor(dayOffset)]
 
 startInteraction()
@@ -13382,6 +13383,7 @@ function submitGuess(){
 }
 
 function flipTiles(tile, index, array, guess){
+    tempTargetWord = targetWord
     const letter = tile.dataset.letter
     /*selects individual key */
     const key = keyboard.querySelector(`[data-key="${letter}"i]`)
@@ -13392,20 +13394,35 @@ function flipTiles(tile, index, array, guess){
 
     tile.addEventListener("transitionend", () => {
         tile.classList.remove("flip")
-        if(targetWord[index] === letter){
-            tile.dataset.state = "correct"
-            key.classList.add("correct")
-        } else if (targetWord.includes(letter)){
-            tile.dataset.state = "wrong-location"
-            key.classList.add("wrong-location")
-        } else {
-            tile.dataset.state = "wrong"
-            key.classList.add("wrong")
+
+        for(let i = 0; i < guess.length; i++){
+            if(tempTargetWord[index] === letter){
+                tile.dataset.state = "correct"
+                key.classList.add("correct")
+                tempTargetWord = tempTargetWord.replace(guess[i], " ")
+            }
+        } 
+        
+        for(let i = 0; i < guess.length; i++){
+            if(tile.dataset.state != "correct" && tempTargetWord.includes(letter)){
+                tile.dataset.state = "wrong-location"
+                key.classList.add("wrong-location")
+                tempTargetWord = tempTargetWord.replace(guess[i], " ")
+            }
+        }
+        
+        for(let i = 0; i < guess.length; i++){
+            if(tile.dataset.state != "correct" && tile.dataset.state != "wrong-location"){
+                tile.dataset.state = "wrong"
+                key.classList.add("wrong")
+            }  
         }
 
+        console.log(index)
         if(index === array.length -1){
             tile.addEventListener("transitionend", () => {
                 startInteraction()
+                console.log(array)
                 checkWinLose(guess, array)
             }), 
             {once: true}
