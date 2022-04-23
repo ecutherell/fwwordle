@@ -162,7 +162,7 @@ svg {
         transform: translateX(5%);
     }
     100%{
-        transform: translateX(0a);
+        transform: translateX(0);
     }
 }
 
@@ -183,7 +183,7 @@ svg {
         transform: translateY(-5%);
     }
     100%{
-        transform: translateY(0%);
+        transform: translateY(0);
     }
 }
 
