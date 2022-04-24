@@ -5,7 +5,6 @@
 
 */
 
-@import "utils/variables";
 
 *, *::after, *::before{
     box-sizing: border-box;

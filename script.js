@@ -13289,18 +13289,24 @@ console.log(dayOffset)
 /*might need to add const back in front of target word*/
 const targetWord = targetWords[Math.floor(dayOffset)]
 
+
+
+/*Starts the game */
 startInteraction()
 
+/*Function to start the game*/
 function startInteraction(){
     document.addEventListener("click", handleMouseClick)
     document.addEventListener("keydown", handleKeyPress)
 }
 
+/*Function to end the game*/
 function stopInteraction(){
     document.removeEventListener("click", handleMouseClick)
     document.removeEventListener("keydown", handleKeyPress)
 }
 
+/*When the mouse gets clicked, makes the keys do their appropriate feature*/
 function handleMouseClick(e){
     if(e.target.matches("[data-key]")){
         pressKey(e.target.dataset.key)
@@ -13318,6 +13324,7 @@ function handleMouseClick(e){
     }
 }
 
+/*When the keyboard gets clicked, makes the keys do their appropriate feature*/
 function handleKeyPress(e){
     if(e.key === "Enter"){
         submitGuess()
@@ -13336,6 +13343,7 @@ function handleKeyPress(e){
 
 }
 
+/*When a key gets pressed, this enters in the pressed key onto the grid*/
 function pressKey(key){
     const activeTiles = getActiveTiles()
     if(activeTiles.length >= WORD_LENGTH) return
@@ -13346,17 +13354,18 @@ function pressKey(key){
     nextTile.dataset.state = "active"
 }
 
-/*needs some fixing?, deletes when not enough letters*/
+/*When a key gets pressed, this delets most recent key put into the grid*/
 function deleteKey(){
     const activeTiles = getActiveTiles()
     const lastTile = activeTiles[activeTiles.length - 1]
     if(lastTile == null) return
+
     lastTile.textContent = ""
     delete lastTile.dataset.state
     delete lastTile.dataset.letter
-
 }
 
+/*When the user preses enter, checks if the guess is valid length and a valid word */
 function submitGuess(){
     const activeTiles = [...getActiveTiles()]
     if(activeTiles.length !== WORD_LENGTH){
@@ -13382,6 +13391,7 @@ function submitGuess(){
 
 }
 
+/*After the guess is checked and validated, the tiles get flipped to their appropriate color*/
 function flipTiles(tile, index, array, guess){
     tempTargetWord = targetWord
     const letter = tile.dataset.letter
@@ -13395,6 +13405,8 @@ function flipTiles(tile, index, array, guess){
     tile.addEventListener("transitionend", () => {
         tile.classList.remove("flip")
 
+        /* Took inspiration from https://jonahlawrence.hashnode.dev/why-most-wordle-clones-are-wrong
+         * Iterates through the users guess and then if the letters are in the correct location*/
         for(let i = 0; i < guess.length; i++){
             if(tempTargetWord[index] === letter){
                 tile.dataset.state = "correct"
@@ -13403,6 +13415,8 @@ function flipTiles(tile, index, array, guess){
             }
         } 
         
+        /* Iterates through the users guess and then if the letters are in the wrong location
+         * but still in the word. */
         for(let i = 0; i < guess.length; i++){
             if(tile.dataset.state != "correct" && tempTargetWord.includes(letter)){
                 tile.dataset.state = "wrong-location"
@@ -13411,6 +13425,7 @@ function flipTiles(tile, index, array, guess){
             }
         }
         
+        /* If the letter did not get hit in the previous for loops, then it is not in the target word*/
         for(let i = 0; i < guess.length; i++){
             if(tile.dataset.state != "correct" && tile.dataset.state != "wrong-location"){
                 tile.dataset.state = "wrong"
@@ -13418,11 +13433,10 @@ function flipTiles(tile, index, array, guess){
             }  
         }
 
-        console.log(index)
+        /*Goes to check if there is a winner or a loser */
         if(index === array.length -1){
             tile.addEventListener("transitionend", () => {
                 startInteraction()
-                console.log(array)
                 checkWinLose(guess, array)
             }), 
             {once: true}
@@ -13431,10 +13445,12 @@ function flipTiles(tile, index, array, guess){
     {once: true}
 }
 
+/* */
 function getActiveTiles(){
     return guessGrid.querySelectorAll('[data-state="active"]')
 }
 
+/*Outputs to the user an alert, usually telling them they won or the winning word */
 function showAlert(message, duration=1000){
     const alert = document.createElement("div")
     alert.textContent = message
@@ -13450,6 +13466,7 @@ function showAlert(message, duration=1000){
     }, duration)
 }
 
+/*Shakes the tiles */
 function shakeTiles(tiles){
     tiles.forEach(tile => {
         tile.classList.add("shake")
@@ -13462,11 +13479,13 @@ function shakeTiles(tiles){
     })
 }
 
+/*checks if the users guess won or lost */
 function checkWinLose(guess, tiles){
+
     if(guess === targetWord){
         showAlert("You Win", 5000)
-        danceTiles(tiles)
-        stopInteraction
+        /*danceTiles(tiles)*/
+        stopInteraction()
         return
     }
 
@@ -13478,6 +13497,7 @@ function checkWinLose(guess, tiles){
 
 }
 
+/*Makes the tiles "dance" if the guess word won */
 function danceTiles(){
     tiles.forEach((tile, index) => {
         setTimeout(() =>{
