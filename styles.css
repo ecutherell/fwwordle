@@ -13,7 +13,7 @@
 
 body{
   /*change to sea foam green */
-  background-color: rgb(159, 226, 191);
+  background-color: rgb(180, 48, 0);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
