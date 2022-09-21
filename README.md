@@ -1,5 +1,6 @@
 Version 1.0 <br />
 The program works and is ready to be played <br />
+Wordle clone that consists of ONLY the invalid word options <br />
 
 To be included in future updates: <br /> 
 1. Make mobile compatible <br />
